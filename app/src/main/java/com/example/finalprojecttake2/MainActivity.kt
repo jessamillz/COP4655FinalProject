@@ -4,8 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -28,10 +30,13 @@ import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.finalprojecttake2.ui.theme.FinalProjectTake2Theme
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,7 +92,7 @@ fun FinalProjectApp() {
                     IconButton(onClick = { /*TODO*/ }) {
                         Icon(
                             Icons.Outlined.Home,
-                            contentDescription = "Home",
+                            contentDescription = "Home"
                         )
                     }
                     IconButton(onClick = { /*TODO*/ }) {
@@ -108,18 +113,81 @@ fun FinalProjectApp() {
         ) { innerPadding ->
         Column(
             modifier = Modifier
-                .padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+                .padding(innerPadding)
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
-                modifier = Modifier.padding(8.dp),
+                modifier = Modifier
+                    .padding(8.dp)
+                    .align(alignment = Alignment.CenterHorizontally),
+                textAlign = TextAlign.Center,
                 text =
                 """
                     Welcome to the Distrackt App!
                     
                 """.trimIndent(),
             )
+            Row(Modifier.weight(1f)) {
+                ComposableInfoCard(
+                    title = "Total Sessions:",
+                    backgroundColor = MaterialTheme.colorScheme.background,
+                    modifier = Modifier.weight(1f)
+                )
+                ComposableInfoCard(
+                    title = "3",
+                    backgroundColor = MaterialTheme.colorScheme.background,
+                    modifier = Modifier.weight(1f)
+                )
+            }
+            Row(Modifier.weight(1f), ) {
+                ComposableInfoCard(
+                    title = "Distraction Free Sessions:",
+                    backgroundColor = MaterialTheme.colorScheme.background,
+                    modifier = Modifier.weight(1f)
+                )
+                ComposableInfoCard(
+                    title = "1",
+                    backgroundColor = MaterialTheme.colorScheme.background,
+                    modifier = Modifier.weight(1f),
+                )
+            }
+            Row(Modifier.weight(1f)) {
+                Text(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    text =
+                    """
+                    Click below to start a new session or view reports!
+                    
+                """.trimIndent(),
+                )
+            }
         }
+    }
+}
+
+@Composable
+private fun ComposableInfoCard(
+    title: String,
+    backgroundColor: Color,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(backgroundColor)
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = title,
+            modifier = Modifier.padding(bottom = 16.dp),
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 
